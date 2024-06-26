@@ -23,6 +23,12 @@ module.exports = function auth(authKeyword) { return function auth(req, res, nex
     // If Token is valid -> Next() and Slide User Expiry Time
 
 
+
+    // Authorisation ( Requires NO DATABASE CALL )
+    // Check for User Role
+    
+
+
    // if(!token) res.status(401).send('Access Denied. No Token Provided.');
     req.user = {"name":"Mandeep Saini","_id":"12345"};
     req.authKeyword = authKeyword;

@@ -1,16 +1,18 @@
 
 require('dotenv').config();
 require('module-alias/register');//Needed for @ in path
-
+const  path = require('path');
 //Init Startup Debuger
 const debugStartUp = require('debug')('app:startup');
 
 //Init Express App
 const express = require('express');
 const app = express();
-
 //Init Startup Error Logger
 require('@startup/errorLog.start')(process);
+
+app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, './app/views'));
 
 //Init all Databases Here
 
@@ -29,8 +31,8 @@ require('@startup/errorLog.start')(process);
 
 
 //All Routes //./app/routes/
-require('@routes/admin.routes')(app);
-require('@routes/api.routes')(app);
+require('@routes/web.routes')(app);
+require('@routes/app.routes')(app);
 
 
 
