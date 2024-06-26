@@ -1,11 +1,18 @@
+const { getUserById } = require('../models/user.model');
 
 //const jwt = require('jsonwebtoken');
 module.exports = function auth(authKeyword, isApiOrNot=false) { return function auth(req, res, next){
+    const cookieParser = require('@helpers/cookieParser');
+    const token = req.headers['user-agent']; 
+    console.log(token);
+    const cookie = req.headers['cookie'];
+    const getSessionById = require('@models/userSession.model.js').getSessionById;
+    const cookieObject = cookieParser(cookie);
+    console.log(cookieObject);
+    console.log(token)
+   
 
-    // const token = req.header('x-auth-token'); 
-    
-
-
+    console.log(getSessionById(cookieObject.sessionid));    
 // Procedure
     // Check token availibility
     // If not -> return Error or Redirect to Login or call return method
@@ -38,21 +45,29 @@ module.exports = function auth(authKeyword, isApiOrNot=false) { return function 
 
 // Taking Input Here
     // const token = req.header('x-auth-token');  // for developement
-    const token = "123456789"
-    const user_agent = "Mozilla/5.0 Version/4.0";
-    const active = false;
+    // const token = "123456789"
+    // const user_agent = "Mozilla/5.0 Version/4.0";
+    // const active = false;
 
     // Auth Logic Written Here
     
-    // Check for Token
-    if(!getSessionById(token)) res.status(401).send('Access Denied. Invalid Token');
-    // Check for Agent 
-    const agent = getSessionById(token).user_agent;
-    if(agent != user_agent) res.status(401).send('Access Denied. Invalid User Agent');
-    // Check for Expiry
-    if(!active) res.status(401).send('Access Denied. Session Expired. Inactivity Detected');
-    // Check for User
-    const user = getUserById(getSessionById(token).user_id);
+    // // Check for Token
+
+    if(!getSessionById(cookieObject.sessionid)) res.status(401).send('Access Denied. Invalid Token');
+    // // Check for Agent 
+    const agent = token;
+    const session = getSessionById(cookieObject.sessionid);
+    if(session.user_agent != agent) res.status(401).send('Access Denied. Invalid User Agent');
+    // // Check for Expiry
+    console.log(new Date());
+    console.log(session.expiry);
+    // if(session.expiry < new Date()) res.status(401).send('Access Denied. Token Expired');
+    // // Check for User
+    const user = getUserById(session.user_id);
+    if(!user) res.status(401).send('Access Denied. Invalid User');
+
+    res.send(user);
+    // const user = getUserById(getSessionById(token).user_id);
 
 
 

@@ -36,13 +36,13 @@ let Users = [
         name: "Michael Brown"
     },
     {
-        id: "38447281",
-        name: "Olivia Wilson"
+        id: "38447284",
+        name: "SimarPreet Kaur"
     }
 ];
 
 function getUserById(user_id) {
-    return Users.find(user => user[user_id].name);
+    return Users.find(user => user.id == user_id);
 }
 
 module.exports = {getUserById};

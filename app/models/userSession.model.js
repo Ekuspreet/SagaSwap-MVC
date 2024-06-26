@@ -60,7 +60,15 @@ let userSessions = [
         user_agent: "Mozilla/5.0 Version/13.0",
         user_id: "38447283",
         expiry: new Date(Date.now())
-    }
+    },
+     
+    {
+        session_id: "IVA4hRgkSAdWbVYdnhMRiZ0HrvzsifjW",
+        user_agent: "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
+        user_id: "38447284",
+        expiry: new Date(Date.now())
+    },
+     
 ];
 
 function getSessionById(session_id) {
