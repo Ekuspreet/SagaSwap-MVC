@@ -10,11 +10,13 @@ const express = require('express');
 const app = express();
 //Init Startup Error Logger
 require('@startup/errorLog.start')(process);
-
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
 
 //Init all Databases Here
+
+// require('@databases/createUser.js')(db_client);
+// require('@databases/createSession.js')(db_client);
 
 
 

@@ -29,6 +29,7 @@
     "@middlewares": "./app/middlewares",
     "@views": "./app/views",
     "@helpers" : "./app/helper",
-    "@models": "./app/models"
+    "@models": "./app/models",
+    "@databases" : "./app/database"
   }
 }
