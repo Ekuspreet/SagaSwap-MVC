@@ -4,21 +4,26 @@
   "description": "Base Package for Node projects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon index.js",
+    "watch" : "concurrently \"nodemon index.js\" \"npx tailwindcss -i ./public/css/index.css -o ./src/output.css --watch\""
   },
   "author": "Mandeep Saini",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "config": "^3.3.11",
     "debug": "^4.3.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
+    "express-ejs-layouts": "^2.5.1",
     "joi": "^17.13.1",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.3",
     "pg": "^8.12.0",
+    "postcss-cli": "^11.0.0",
     "winston": "^3.13.0"
   },
   "_moduleAliases": {
@@ -28,8 +33,11 @@
     "@controllers": "./app/controllers",
     "@middlewares": "./app/middlewares",
     "@views": "./app/views",
-    "@helpers" : "./app/helper",
+    "@helpers": "./app/helper",
     "@models": "./app/models",
-    "@databases" : "./app/database"
+    "@databases": "./app/database"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
   }
 }

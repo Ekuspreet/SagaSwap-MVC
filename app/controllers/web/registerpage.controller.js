@@ -4,8 +4,10 @@ const router = express.Router();
 router.get('/', (req, res) => 
     {
      
-    // console.log('@views');
-    res.render('web/register');
+    console.log('@views');
+    
+    res.render('register');
+    // res.send("REtARD")
   })
 
 

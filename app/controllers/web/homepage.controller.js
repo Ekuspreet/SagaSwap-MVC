@@ -5,7 +5,7 @@ router.get('/', (req, res) =>
     {
      
     console.log('@views');
-    res.render('web/landing');
+    res.render('landing');
   })
 
 

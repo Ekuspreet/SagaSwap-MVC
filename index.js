@@ -3,17 +3,32 @@ require('dotenv').config();
 require('module-alias/register');//Needed for @ in path
 const  path = require('path');
 //Init Startup Debuger
+
 const debugStartUp = require('debug')('app:startup');
 
 //Init Express App
 const express = require('express');
+const req = require('express/lib/request');
 const app = express();
+
 //Init Startup Error Logger
 require('@startup/errorLog.start')(process);
+
+
+const expressLayouts = require('express-ejs-layouts');
+
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
+app.use(expressLayouts);
 
+app.set('layout', 'layouts/layout')
+
+
+app.use(express.static(path.join(__dirname,'public')))
+app.use('/css', express.static("src"))
 //Init all Databases Here
+
+// const db_client = require('@helpers/db.connect')
 
 // require('@databases/createUser.js')(db_client);
 // require('@databases/createSession.js')(db_client);
