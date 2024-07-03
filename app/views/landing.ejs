@@ -1,0 +1,95 @@
+<!-- Body -->
+<section id="form-wrapper" class=" flex flex-col   w-full  min-h-96  bg-dim  rounded-md p-3 flex-1 box-border border-2 border-blue-700">
+    <section class="flex gap-3">
+        <button id="authenticated-btn"
+            class="flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-sky-600 to-sky-900   ">
+            <span class="text-offwhite text-sm"> Authenticated</span> <br>
+            <span class=" text-graytext text-xs leading-none ">Login using an account. Can save progress.</span>
+        </button>
+        <button id="anonymous-btn"
+            class="flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl  from-purple-600 to-purple-900     ">
+            <span class="text-offwhite text-sm"> Anonymous</span> <br>
+            <span class=" text-graytext text-xs leading-none ">Play without an account using gamerid.</span>
+        </button>
+    </section>
+    <section class="mt-5  flex flex-col items-center">
+
+        <!-- input feild here -->
+        <form id="authenticated" class="authenticated w-full">
+            <%- include('./components/input-text', { 'label' : "Email" , 'type' : 'email' }) %>
+                <%- include('./components/input-text', { 'label' : "Password" , 'type' : "password" }) %>
+                    <br>
+                  <center>
+
+                      <%- include('./components/input-submit',{ 'name' : "LOGIN" , }) %>
+                  </center>
+
+        </form>
+        <form id="anonymous" class="anonymous w-full">
+            <%- include('./components/input-text', { 'label' : "Gamer ID" , 'type' : 'text' }) %>
+                <br>
+                <center>
+
+                    <%- include('./components/input-submit',{ 'name' : "LOGIN" , }) %>
+                </center>
+        </form>
+
+
+
+    </section>
+</section>
+
+<script>
+    let mode = 'authenticated';
+    document.addEventListener('DOMContentLoaded', () => {
+        let anonymousbtn = document.querySelector('#anonymous-btn')
+        let authenticatedbtn = document.querySelector('#authenticated-btn')
+        console.log(authenticatedbtn)
+        let anonymous = document.querySelector('#anonymous');
+        console.log(anonymous)
+        let authenticated = document.querySelector('#authenticated');
+        console.log(authenticated)
+        let wrapper = document.querySelector('#form-wrapper')
+        const auth = ['bg-gradient-to-bl','from-sky-600','to-sky-900']
+        const anon = ['bg-gradient-to-bl','from-purple-600','to-purple-900']
+        const authborder = "border-sky-700"
+        const anonborder = "border-purple-900"
+        
+        anonymous.style.display = "none";
+        console.log(...anon)
+        anonymousbtn.classList.remove(...anon)
+
+        
+        anonymousbtn.addEventListener('click', () => {
+            anonymous.style.display = "block"
+            authenticated.style.display = "none"
+            anonymousbtn.classList.add(...anon)
+            authenticatedbtn.classList.remove(...auth)
+            wrapper.classList.add(anonborder)
+            wrapper.classList.remove(authborder)
+            mode = "anonymous";
+        })
+        
+        authenticatedbtn.addEventListener('click', () => {
+            anonymous.style.display = "none"
+            authenticated.style.display = "block"
+            anonymousbtn.classList.remove(...anon)
+            authenticatedbtn.classList.add(...auth)
+            wrapper.classList.add(authborder)
+            wrapper.classList.remove(anonborder)
+            mode = "authenticated"
+        })
+
+    })
+
+</script>
+
+<%- contentFor('action') %>
+    <%- include('./components/button-link',{ 'name' : "Register" , 'description' : "To Create A New Account" , 'href'
+        : "/register" }) %>
+
+        <%- contentFor('information') %>
+            <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 text-center text-3xl font-sen">
+                HOW TO PLAY
+
+            </section>

@@ -7,7 +7,7 @@ router.get('/', (req, res) =>
     console.log('@views');
     
     res.render('register');
-    // res.send("REtARD")
+    
   })
 
 

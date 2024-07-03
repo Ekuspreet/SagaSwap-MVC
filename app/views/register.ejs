@@ -1,75 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        padding: 20px;
-      }
+<!-- Body -->
+  <section
+    class=" flex flex-col   w-full  min-h-96 pb-10 bg-dim  rounded-md p-3 flex-1 box-border border-2 border-blue-600">
+    <section class="flex gap-3">
+      <button
+        class=" flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-blue-600 to-blue-900  ">
+        <span class="text-offwhite text-sm"> Register </span> <br>
+        <span class=" text-graytext text-xs leading-none ">Welcome. Create A New Account</span>
+      </button>
 
-      form {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        /* width: 300px; Adjust as needed */
-        margin: 0 auto; /* Center align the form */
-      }
+    </section>
+    <section class="mt-5">
 
-      label {
-        font-weight: bold;
-        margin-bottom: 5px;
-        display: block;
-      }
+      <!-- input feild here -->
+      <%- include('./components/input-text', { 'label' : "Name" , 'type' : "text" }) %>
+        <%- include('./components/input-text', { 'label' : "Gamer ID" , 'type' : "text" }) %>
+          <%- include('./components/input-text', { 'label' : "Email" , 'type' : 'email' }) %>
+            <%- include('./components/input-text', { 'label' : "Password" , 'type' : "password" }) %>
 
-      input[type="text"],
-      input[type="email"],
-      input[type="password"] {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
+              <br>
 
-      input[type="submit"] {
-        background-color: #4caf50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
 
-      input[type="submit"]:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <form action="/register" method="POST">
-      <h2>WELCOME TO SAGASWAP</h2>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <br />
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
-      <br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <br />
-      <label for="gamertag">Gamertag:</label>
-      <input type="text" id="gamertag" name="gamertag" required />
-      <br />
-      <input type="submit" value="Register" />
-    </form>
-    <br />
-    <a href="/">Already have an account? Login here</a>
-  </body>
-</html>
+              <center>
+                <!-- <button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
+                        <span class="text-offwhite text-sm">Log In</span> <br>
+                        <span class=" text-graytext text-xs leading-none ">Log In using credentials.</span>
+                    </button> -->
+
+                <%- include('./components/input-submit',{ 'name' : "SIGN UP" , }) %>
+
+              </center>
+
+
+    </section>
+  </section>
+
+
+  <%- contentFor('action') %>
+    <%- include('./components/button-link',{ 'name' : "Login" , 'description' : "Log In To Existing Account" , 'href'
+      : "/" }) %>
+
+
+      <script>
+        function Action() {
+          window.location.href = "/register"
+        }
+      </script>
+
+      <%- contentFor('information') %>
+        <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 text-center text-3xl font-sen">
+          WELCOME TO <br>
+          <span class="text-6xl"> SAGA SWAP</span>
+        </section>

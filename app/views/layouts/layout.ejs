@@ -29,80 +29,16 @@
             <span class="text-violet-300 text-3xl">S</span>aga <span class="text-pink-300 text-3xl">S</span>wap
         </div>
 
-
-
-        <!-- <button class="bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
-            <span class="text-offwhite text-sm"> Register</span> <br>
-            <span class=" text-graytext text-xs leading-none ">To create a new account</span>
-        </button> -->
-            
-        <%- include('../components/button',{
-            'name' : "Register",
-            'description' : "To Create A New Account"
-        }) %>
-
+        <%- action %>
     </div>
     <section class="flex my-3  gap-3 flex-col-reverse md:flex-row ">
-        <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 ">
-            HOW TO PLAY
-        </section>
+        <%- information %>
 
-        <section
-            class=" flex flex-col   w-full  min-h-96  bg-dim  rounded-md p-3 flex-1 box-border border-2 border-violet-600">
-            <section class="flex gap-3">
-                <button
-                    class="flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-violet-600 to-violet-900  ">
-                    <span class="text-offwhite text-sm"> Authenticated</span> <br>
-                    <span class=" text-graytext text-xs leading-none ">Login using an account. Can save progress.</span>
-                </button>
-                <button class="flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
-                    <span class="text-offwhite text-sm"> Anonymous</span> <br>
-                    <span class=" text-graytext text-xs leading-none ">Play without an account using gamerid.</span>
-                </button>
-            </section>
-            <section class="mt-5">
-
-                <!-- input feild here -->
-                <%- include('../components/input-text', {
-                    'label': "Email",
-                   
-                }) %>
-                <%- include('../components/input-text', {
-                    'label': "Password",
-                   
-                }) %>
-
-                <br>
-                <!-- <div class="input font-sen  m-3 rounded-md">
-                    <label class="label font-medium ml-1">Username
-                        <input type="text" class=" p-2  font-sen bg-gray w-full h-10 rounded text-dark border-none">
-                </div>
-                <div class="input font-sen  m-3 rounded-md">
-                    <label class="label font-medium ml-1">Username
-                        <input type="text" class=" p-2 font-sen bg-gray w-full h-10 rounded text-dark border-none">
-                </div> -->
-
-                <center>
-                    <!-- <button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
-                        <span class="text-offwhite text-sm">Log In</span> <br>
-                        <span class=" text-graytext text-xs leading-none ">Log In using credentials.</span>
-                    </button> -->
-
-                    <%- include('../components/button',{
-                        'name' : "Login",
-                        'description' : "Login To Your Account",
-                 
-                    }) %>
-                    
-                </center>
-
-
-            </section>
-        </section>
+        <%- body %>
     </section>
 
-    <section class=" min-h-36  bg-dim w-full rounded-md p-3 flex-1">
-        FOOTER
+    <section class="  text-center font-3xl bg-dim w-full rounded-md p-3 flex-1">
+        MADE WITH LOVE IN LUDHIANA  
     </section>
 
 </body>

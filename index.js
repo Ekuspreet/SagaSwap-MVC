@@ -53,7 +53,9 @@ require('@routes/app.routes')(app);
 
 
 
-
+app.get('*', function(req, res){
+  res.status(404).render('404.err.ejs');
+});
 //Define Important Const / Var / Let
 const port = process.env.PORT || 3000;
 //App Listen Code
