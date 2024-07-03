@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saga Swap</title>
     <link rel="stylesheet" href="css/output.css">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sen:wght@400..800&display=swap"
         rel="stylesheet">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sen:wght@400..800&display=swap"
-            rel="stylesheet">
-    
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sen:wght@400..800&display=swap"
+        rel="stylesheet">
+
+
 </head>
 
 <body class=" text-offwhite bg-dark  bg-blur bg-fixed bg-cover bg-no-repeat  p-3">
 
     <div class="navbar h-20 bg-dim w-full rounded-md p-3 flex items-center justify-between">
         <div class="brand text-offwhite font-serif font-normal md:text-2xl text-xl m-auto mx-3 ">
-           <span class="text-violet-300 text-3xl">S</span>aga <span class="text-pink-300 text-3xl">S</span>wap
+            <span class="text-violet-300 text-3xl">S</span>aga <span class="text-pink-300 text-3xl">S</span>wap
         </div>
 
-        
 
-        <button class="bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
+
+        <!-- <button class="bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
             <span class="text-offwhite text-sm"> Register</span> <br>
             <span class=" text-graytext text-xs leading-none ">To create a new account</span>
-        </button>
+        </button> -->
+            
+        <%- include('../components/button',{
+            'name' : "Register",
+            'description' : "To Create A New Account"
+        }) %>
+
     </div>
     <section class="flex my-3  gap-3 flex-col-reverse md:flex-row ">
         <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 ">
             HOW TO PLAY
         </section>
 
-        <section class=" flex flex-col   w-full  min-h-96  bg-dim  rounded-md p-3 flex-1 box-border border-2 border-violet-600">
+        <section
+            class=" flex flex-col   w-full  min-h-96  bg-dim  rounded-md p-3 flex-1 box-border border-2 border-violet-600">
             <section class="flex gap-3">
                 <button
                     class="flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-violet-600 to-violet-900  ">
@@ -55,25 +63,38 @@
             <section class="mt-5">
 
                 <!-- input feild here -->
-<div class="input font-sen  m-3 rounded-md">
-    <label  class="label font-medium ml-1">Username
-    <input type="text" class=" p-2  font-sen bg-gray w-full h-10 rounded  border-none">
-</div>
-<div class="input font-sen  m-3 rounded-md">
-    <label  class="label font-medium ml-1">Username
-    <input type="text" class=" p-2  font-sen bg-gray w-full h-10 rounded text-dark border-none">
-</div>
-<div class="input font-sen  m-3 rounded-md">
-    <label  class="label font-medium ml-1">Username
-    <input type="text" class=" p-2 font-sen bg-gray w-full h-10 rounded text-dark border-none">
-</div>
+                <%- include('../components/input-text', {
+                    'label': "Email",
+                   
+                }) %>
+                <%- include('../components/input-text', {
+                    'label': "Password",
+                   
+                }) %>
 
-<center>
-<button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
-    <span class="text-offwhite text-sm">Log In</span> <br>
-    <span class=" text-graytext text-xs leading-none ">Log In using credentials.</span>
-</button>
-</center>
+                <br>
+                <!-- <div class="input font-sen  m-3 rounded-md">
+                    <label class="label font-medium ml-1">Username
+                        <input type="text" class=" p-2  font-sen bg-gray w-full h-10 rounded text-dark border-none">
+                </div>
+                <div class="input font-sen  m-3 rounded-md">
+                    <label class="label font-medium ml-1">Username
+                        <input type="text" class=" p-2 font-sen bg-gray w-full h-10 rounded text-dark border-none">
+                </div> -->
+
+                <center>
+                    <!-- <button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
+                        <span class="text-offwhite text-sm">Log In</span> <br>
+                        <span class=" text-graytext text-xs leading-none ">Log In using credentials.</span>
+                    </button> -->
+
+                    <%- include('../components/button',{
+                        'name' : "Login",
+                        'description' : "Login To Your Account",
+                 
+                    }) %>
+                    
+                </center>
 
 
             </section>
@@ -85,4 +106,5 @@
     </section>
 
 </body>
+
 </html>

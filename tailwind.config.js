@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         dim: "#2A2C3B",
         offgray: "#585868",
+        brightgray : "#767687",
         dark: '#1E1D2B',
         offwhite: "#F1F1F1",
         gray: '#bbbbbb',
