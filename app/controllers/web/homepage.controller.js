@@ -7,7 +7,7 @@ router.get('/', (req, res) =>
       name : "Register",
       "description" : "something"
      }
-    console.log('@views');
+    // console.log('@views');
     res.render('landing');
   })
 

@@ -44,11 +44,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         let anonymousbtn = document.querySelector('#anonymous-btn')
         let authenticatedbtn = document.querySelector('#authenticated-btn')
-        console.log(authenticatedbtn)
+        // console.log(authenticatedbtn)
         let anonymous = document.querySelector('#anonymous');
-        console.log(anonymous)
+        // console.log(anonymous)
         let authenticated = document.querySelector('#authenticated');
-        console.log(authenticated)
+        // console.log(authenticated)
         let wrapper = document.querySelector('#form-wrapper')
         const auth = ['bg-gradient-to-bl','from-sky-600','to-sky-900']
         const anon = ['bg-gradient-to-bl','from-purple-600','to-purple-900']
@@ -56,7 +56,7 @@
         const anonborder = "border-purple-900"
         
         anonymous.style.display = "none";
-        console.log(...anon)
+        // console.log(...anon)
         anonymousbtn.classList.remove(...anon)
 
         
@@ -81,6 +81,44 @@
         })
 
     })
+
+</script>
+
+
+<!-- Script For Form Submission  -->
+
+<script>
+    
+    authenticated.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log("Form submission call ho rahi hai")
+    console.log(authenticated);
+    const form = await new FormData(authenticated); // Create FormData object
+        const formData = Object.fromEntries(form);
+        console.log("Data",JSON.stringify(formData))
+        
+        
+    await fetch('/api/register', {
+        method: "POST",
+        credentials: 'same-origin',
+        headers : {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert("Form submitted successfully!");
+        return response.json(); // If expecting JSON response
+    })
+    .then(data => {
+        console.log(data); // Handle response data if needed
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+    });
+});
+
 
 </script>
 

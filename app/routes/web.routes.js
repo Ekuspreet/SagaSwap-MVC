@@ -10,7 +10,7 @@ module.exports = function(app){
  app.use(express.json());
 
  //All Routes to Controller
- app.use('/api/', baseController);
+
 app.use('/', homepageController);
 app.use('/register', registerpageController);
  //Log all API trown errors

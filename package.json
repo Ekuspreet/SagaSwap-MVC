@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon index.js",
-    "watch" : "concurrently \"nodemon index.js\" \"npx tailwindcss -i ./public/css/index.css -o ./src/output.css --watch\""
+    "dev": "nodemon index.js",
+    "watch": "concurrently \"nodemon index.js\" \"npx tailwindcss -i ./public/css/index.css -o ./src/output.css --watch\""
   },
   "author": "Mandeep Saini",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.40.3",
+    "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",
     "config": "^3.3.11",
     "debug": "^4.3.5",

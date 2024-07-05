@@ -20,7 +20,9 @@ module.exports = {
     },
     fontFamily: {
         'serif': "DM Serif Display",
-        'sen': 'sen'
+        'sen': 'sen',
+        'blocky' : 'Bungee',
+        'logo' : 'Overlock SC'
     }
     },
   },

@@ -1,53 +1,85 @@
 <!-- Body -->
-  <section
-    class=" flex flex-col   w-full  min-h-96 pb-10 bg-dim  rounded-md p-3 flex-1 box-border border-2 border-blue-600">
-    <section class="flex gap-3">
-      <button
-        class=" flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-blue-600 to-blue-900  ">
-        <span class="text-offwhite text-sm"> Register </span> <br>
-        <span class=" text-graytext text-xs leading-none ">Welcome. Create A New Account</span>
-      </button>
+<section
+  class=" flex flex-col   w-full  min-h-96 pb-10 bg-dim  rounded-md p-3 flex-1 box-border border-2 border-blue-600">
+  <section class="flex gap-3">
+    <button
+      class=" flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md bg-gradient-to-bl from-blue-600 to-blue-900  ">
+      <span class="text-offwhite text-sm"> Register </span> <br>
+      <span class=" text-graytext text-xs leading-none ">Welcome. Create A New Account</span>
+    </button>
 
-    </section>
-    <section class="mt-5">
+  </section>
+  <form id="register" class="mt-5">
 
-      <!-- input feild here -->
-      <%- include('./components/input-text', { 'label' : "Name" , 'type' : "text" }) %>
-        <%- include('./components/input-text', { 'label' : "Gamer ID" , 'type' : "text" }) %>
-          <%- include('./components/input-text', { 'label' : "Email" , 'type' : 'email' }) %>
-            <%- include('./components/input-text', { 'label' : "Password" , 'type' : "password" }) %>
+    <!-- input feild here -->
+    <%- include('./components/input-text', { 'label' : "Name" , 'type' : "text" }) %>
+      <%- include('./components/input-text', { 'label' : "Gamer ID" , 'type' : "text" }) %>
+        <%- include('./components/input-text', { 'label' : "Email" , 'type' : 'email' }) %>
+          <%- include('./components/input-text', { 'label' : "Password" , 'type' : "password" }) %>
 
-              <br>
+            <br>
 
 
-              <center>
-                <!-- <button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
+            <center>
+              <!-- <button class="mt-5 flex-1 bg-offgray font-sen leading-none text-left  px-3 pt-3 pb-2 rounded-md  ">
                         <span class="text-offwhite text-sm">Log In</span> <br>
                         <span class=" text-graytext text-xs leading-none ">Log In using credentials.</span>
                     </button> -->
 
-                <%- include('./components/input-submit',{ 'name' : "SIGN UP" , }) %>
+              <%- include('./components/input-submit',{ 'name' : "SIGN UP" , }) %>
 
-              </center>
-
-
-    </section>
-  </section>
+            </center>
 
 
-  <%- contentFor('action') %>
-    <%- include('./components/button-link',{ 'name' : "Login" , 'description' : "Log In To Existing Account" , 'href'
-      : "/" }) %>
+  </form>
+</section>
+<script>
+  const register = document.getElementById('register')
+  console.log(register)
+  register.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log("Form submission call ho rahi hai")
+    console.log(register);
+    const form = await new FormData(register); // Create FormData object
+    const formData = Object.fromEntries(form);
+    console.log("Data", JSON.stringify(formData))
 
 
-      <script>
-        function Action() {
-          window.location.href = "/register"
+    await fetch('/api/register', {
+      method: "POST",
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-      </script>
+        alert("Form submitted successfully!");
+        return response.json(); // If expecting JSON response
+      })
+      .then(data => {
+        console.log(data); // Handle response data if needed
+      })
+      .catch(error => {
+        console.error('Error submitting form:', error);
+      });
+  });     
+</script>
 
-      <%- contentFor('information') %>
-        <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 text-center text-3xl font-sen">
-          WELCOME TO <br>
-          <span class="text-6xl"> SAGA SWAP</span>
-        </section>
+<%- contentFor('action') %>
+  <%- include('./components/button-link',{ 'name' : "Login" , 'description' : "Log In To Existing Account" , 'href'
+    : "/" }) %>
+
+
+    <script>
+      function Action() {
+        window.location.href = "/register"
+      }
+    </script>
+
+    <%- contentFor('information') %>
+      <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 text-center text-3xl font-sen">
+        WELCOME TO <br>
+        <span class="text-6xl"> SAGA SWAP</span>
+      </section>

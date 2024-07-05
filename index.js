@@ -10,7 +10,7 @@ const debugStartUp = require('debug')('app:startup');
 const express = require('express');
 const req = require('express/lib/request');
 const app = express();
-
+const bodyParser = require('body-parser')
 //Init Startup Error Logger
 require('@startup/errorLog.start')(process);
 
@@ -20,8 +20,9 @@ const expressLayouts = require('express-ejs-layouts');
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
 app.use(expressLayouts);
-
 app.set('layout', 'layouts/layout')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended : true}))
 
 
 app.use(express.static(path.join(__dirname,'public')))
@@ -59,6 +60,7 @@ app.get('*', function(req, res){
 //Define Important Const / Var / Let
 const port = process.env.PORT || 3000;
 //App Listen Code
+// const hostname = '192.168.1.4'
 app.listen(port, () => {
   debugStartUp(`Node app Started`);
   console.log(`Node app listening on port ${port}`);
