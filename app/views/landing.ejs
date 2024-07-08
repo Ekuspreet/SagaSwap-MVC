@@ -84,43 +84,48 @@
 
 </script>
 
-
+<script>
+    const authenticated = document.getElementById('authenticated')
+    console.log(authenticated)
+    authenticated.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      console.log("Form submission call ho rahi hai")
+      console.log(authenticated);
+      const form = await new FormData(authenticated); // Create FormData object
+      const formData = Object.fromEntries(form);
+      console.log("Data", JSON.stringify(formData))
+  
+  
+      await fetch('/api/login/authenticated', {
+        method: "POST",
+        redirect : 'follow',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            console.error('Network response was not ok');
+          }
+          console.log("Form submitted successfully!");
+          
+   
+          
+          return response.json(); // If expecting JSON response
+        })
+        .then(data => {
+          console.log("DATA",data); // Handle response data if needed
+        })
+        .catch(error => {
+          console.error('Error submitting form:', error);
+        });
+    });     
+  </script>
+  
 <!-- Script For Form Submission  -->
 
-<script>
-    
-    authenticated.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    console.log("Form submission call ho rahi hai")
-    console.log(authenticated);
-    const form = await new FormData(authenticated); // Create FormData object
-        const formData = Object.fromEntries(form);
-        console.log("Data",JSON.stringify(formData))
-        
-        
-    await fetch('/api/register', {
-        method: "POST",
-        credentials: 'same-origin',
-        headers : {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        alert("Form submitted successfully!");
-        return response.json(); // If expecting JSON response
-    })
-    .then(data => {
-        console.log(data); // Handle response data if needed
-    })
-    .catch(error => {
-        console.error('Error submitting form:', error);
-    });
-});
 
 
-</script>
 
 <%- contentFor('action') %>
     <%- include('./components/button-link',{ 'name' : "Register" , 'description' : "To Create A New Account" , 'href'

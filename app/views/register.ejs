@@ -47,19 +47,23 @@
 
     await fetch('/api/register', {
       method: "POST",
+      redirect : 'follow',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          console.error('Network response was not ok');
         }
-        alert("Form submitted successfully!");
+        console.log("Form submitted successfully!");
+        
+          // window.location.href = "/";
+        
         return response.json(); // If expecting JSON response
       })
       .then(data => {
-        console.log(data); // Handle response data if needed
+        console.log("DATA",data); // Handle response data if needed
       })
       .catch(error => {
         console.error('Error submitting form:', error);

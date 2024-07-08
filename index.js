@@ -20,7 +20,7 @@ const expressLayouts = require('express-ejs-layouts');
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
 app.use(expressLayouts);
-app.set('layout', 'layouts/layout')
+app.set('layout', 'layouts/layout','layouts/main.layout')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
