@@ -20,13 +20,13 @@ const expressLayouts = require('express-ejs-layouts');
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
 app.use(expressLayouts);
-app.set('layout', 'layouts/layout','layouts/main.layout')
+app.set('layout', 'layouts/layout','layouts/main.layout.ejs');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
 
-app.use(express.static(path.join(__dirname,'public')))
-app.use('/css', express.static("src"))
+app.use(express.static("public"))
+
 //Init all Databases Here
 
 // const db_client = require('@helpers/db.connect')

@@ -25,7 +25,7 @@ module.exports = function(db_client){
     user_id INT NOT NULL,
     user_agent TEXT NOT NULL,
     creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    expiry_time TIMESTAMP NOT NULL,
+    expiry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (user_id) REFERENCES users(id) )`, (err, res) => {
         if (!err){

@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router();
 const bodyParser = require('body-parser')
-const db_client = require('@helpers/db.connect')
 router.use(bodyParser.json())
 const getHash = require('@helpers/hasher');
-const { extendWith } = require('lodash');
 router.post('/', async (req,res)=>{
-
+    
+    const db_client = require('@helpers/db.connect')
  console.log(req.body)
     // VErification
     const details = req.body;

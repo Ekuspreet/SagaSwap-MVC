@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saga Swap</title>
-    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/global.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -19,6 +21,7 @@
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sen:wght@400..800&display=swap"
         rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Overlock+SC&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 
 </head>
@@ -30,18 +33,87 @@
             <span class="text-violet-300 text-3xl leading-none">S</span>aga <span class="text-pink-300 text-3xl leading-none">S</span>wap
         </div>
 
-        <%- action %>
+        <%- include( '../components/profile-button' , { "name" : "Ekuspreet", 'icon' : "person" } ) %>
     </div>
-    <section class="flex my-3  gap-3 flex-col-reverse md:flex-row ">
-        <%- information %>
+    
 
-        <%- body %>
-    </section>
+    <section class="flex flex-col-reverse sm:flex-row my-3 gap-3">
+        <!-- Menu -->
+        <form id="menubar" class="menu md:flex-shrink h-min flex flex-row justify-center sm:flex-col gap-3 rounded bg-dim p-3">
+            <%-
+            include('../components/menu-button', {
+                name : "Play",
+                icon : "stadia_controller"
+            }) %> <%-
+            include('../components/menu-button', {
+                name : "Friends",
+                icon : "group"
+            }) %> <%-
+            include('../components/menu-button', {
+                name : "Settings",
+                icon : "settings"
+            }) %>
+        </form>
+            
+    
 
-    <section class="  text-center font-3xl bg-dim w-full rounded-md p-3 flex-1">
-        MADE WITH LOVE IN LUDHIANA  
+
+        <div class="body-content rounded-lg bg-dim flex-grow w-full sm:w-auto p-3 overflow-y-auto max-h-full h-[68vh] sm:h-[75vh]">
+            <%- body %>
+            <!-- Replace this with your actual dynamic content -->
+    
+            <!-- Example content (replace with your actual content) -->
+          
+        </div>
+    
+        <!-- Body Content -->
     </section>
+    
+    
+
 
 </body>
 
+<script>
+    const activator = [
+        'bg-purple-500', 'border-2' 
+    ]
+    document.addEventListener('DOMContentLoaded',()=>{  
+        console.log(document.getElementById(getCookie('currentPage')))
+        document.getElementById(getCookie('currentPage')).classList.add(...activator)
+    })
+    console.log()
+    const menubar = document.getElementById('menubar');
+    menubar.addEventListener('click', event =>{
+        event.preventDefault();
+        const targetElem = event.target.closest('button')
+        const prevPage = getCookie('currentPage') || null;
+        setCookie('currentPage',targetElem.id)
+        window.location.href = `/profile/${targetElem.id.replace('label','')}`
+        // updateUI(prevPage,targetElem.id);
+
+        console.log(getCookie('currentPage'))        
+    })
+
+    function updateUI(prev,curr){
+        document.getElementById(curr).classList.add(...activator)
+        document.getElementById(prev).classList.remove(...activator)
+    }
+    
+</script>
+<script>
+    function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+}
+function setCookie(name, value, days=1000) {
+    var d = new Date;
+    d.setTime(d.getTime() + 24*60*60*1000*days);
+    document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+}
+function deleteCookie(name){
+    setCookie(name,"",-1)
+}
+
+</script>
 </html>

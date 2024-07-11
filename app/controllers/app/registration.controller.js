@@ -29,7 +29,7 @@ router.post('/', async (req,res)=>{
     console.log("ADDED USER ", await executeQuery(query,values))
     // res.contentType('application/json');
     res.redirect('/')
-    // res.status(200).send({message: "User Added","url":"/"});
+    res.status(200).send({message: "User Added"});
 // console.log(req.headers)
 // res.send()
 })
