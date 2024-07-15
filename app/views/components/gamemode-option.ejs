@@ -1,0 +1,19 @@
+<input class="hidden" type="radio" name="<%= feild %>" value="<%= name.toLowerCase() %>" id="<%= name.toLowerCase() %>" <%= checked %> >
+
+<!-- max-w-96 min-w-60 -->
+<label for="<%= name.toLowerCase() %>"
+    class="cursor-pointer">
+    <div 
+    
+    class=" min-h-32 bg-cover rounded-2xl  font-sen p-2 sm:w-auto  filter grayscale sm:max-w-96 sm:min-w-64 w-full "
+    style = "background-image: url('<%= bgurl %>') ; border-color: <%= bordercol %> ; background-position : center;"
+    >
+    <div class="text-xl font-semibold ml-3 mt-3">
+        <%= name %>
+
+    </div>
+    <div class="text-sm ml-3 mt-1">
+        <%= description %>
+    </div>
+    </div>
+</label>

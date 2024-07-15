@@ -37,7 +37,7 @@ let Users = [
     },
     {
         id: "38447284",
-        name: "SimarPreet Kaur"
+        name: "Ekuspreet Singh"
     }
 ];
 

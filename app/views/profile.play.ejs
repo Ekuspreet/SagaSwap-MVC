@@ -1,8 +1,69 @@
-<h1>PLAY THE GAME</h1>
 
-<%- contentFor('action') %>
+<form class="flex flex-col gap-5">
+    <div class="choosegamemode">
+    <%- include('components/heading', { content : "Choose A Game Mode" } ) %>
+  
+    <fieldset id="gamemode" class="flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
-<%- include( 'components/profile-button' , { "name" : "Ekuspreet", 'icon' : "person" } ) %>
-   
+<%- include('components/gamemode-option.ejs',{ name : "Relaxed", description
+    : "When You Want To Just Have Some Fun With Friends Without Bothering Much. " ,bgurl: "https://thumbs.dreamstime.com/b/peaceful-sunrise-over-serene-lake-representing-calm-clarity-can-come-maintaining-healthy-brain-vector-325420496.jpg" , feild : "gamemode", bordercol : "" , checked : "checked" }) %>
 
-<%- contentFor('information') %>
+<%- include('components/gamemode-option.ejs',{ name : "Competetive", description
+    : "When You Are In A Mood To Face A Writing Challenge" ,bgurl: "https://media.istockphoto.com/id/1308800381/vector/conceptual-illustration-of-a-human-brain-spilt-open-to-extract-the-neural-networks.jpg?s=612x612&w=0&k=20&c=BlYsIGKMnj6dT5vAp5n2oNc-3Mdm6oeiFA7gYJLb2Jg=" , feild : "gamemode", bordercol : "" , checked : "" }) %>
+
+<%- include('components/gamemode-option.ejs',{ name : "Creative", description
+    : "When You Are In A Mood To Create Something Unique And Funny " ,bgurl: "https://openup.com/wp-content/uploads/2021/08/B2C-Blogvisual-Staying-relaxed-after-vacation-1024x576.png" , feild : "gamemode", bordercol : "" , checked : "" }) %>
+
+</fieldset>
+</div>
+    <div class="choosemedium">
+    <%- include('components/heading', { content : "What Do You Want To Create?" } ) %>
+  
+    <fieldset id="medium" class="flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
+
+<%- include('components/gamemode-option.ejs',{ name : "Story", description
+    : "Create A Fascinating Story" ,bgurl: "https://publishingperspectives.com/wp-content/uploads/2017/02/710-Sharjah-Childrens-Fest-ftw-1-710x452.png" ,feild : "medium", bordercol : "" , checked : "checked" }) %>
+
+<%- include('components/gamemode-option.ejs',{ name : "Poem", description
+    : "Create A Enchanting Poem" ,bgurl: "https://t4.ftcdn.net/jpg/00/49/92/43/360_F_49924324_EVkUWQAfj5EP1jwj2M1UtVh3ts8vPUxU.jpg" ,feild : "medium", bordercol : "" , checked : "" }) %>
+
+</fieldset>
+</div>
+<%- include('components/input-submit',{name : "PLAY GAME"}) %>
+</form>
+
+<script>
+/* Handling Game Mode UI */
+const greyscaler = ['grayscale','text-dim']
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    const gamemode = document.getElementById('gamemode');
+    const medium = document.getElementById('medium')
+    updateChecked(gamemode)
+    updateChecked(medium)
+
+    
+    gamemode.addEventListener('click',()=>{
+        updateChecked(gamemode)
+    })
+    
+    medium.addEventListener('click',()=>{
+        updateChecked(medium)
+    })
+})
+
+
+function updateChecked(selectionmode) {
+    const inputs = selectionmode.querySelectorAll('input[type="radio"]');
+    
+    inputs.forEach(input => {
+        const label = selectionmode.querySelector(`label[for="${input.id}"] div`);
+        if (input.checked) {
+            label.classList.remove(...greyscaler);
+        } else {
+            label.classList.add(...greyscaler);
+        }
+    });
+}
+</script>

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+
+  router.get('/',(req,res) =>{
+    res.redirect("/profile/play")
+  })
   router.get('/play',(req,res) =>{
      // console.log('@views');
      res.render('profile.play.ejs',{ layout : "layouts/main.layout.ejs" } );

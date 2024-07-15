@@ -64,7 +64,7 @@ let userSessions = [
      
     {
         session_id: "IVA4hRgkSAdWbVYdnhMRiZ0HrvzsifjW",
-        user_agent: "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
+        user_agent: "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36",
         user_id: "38447284",
         expiry: new Date(Date.now())
     },

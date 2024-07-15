@@ -2,17 +2,19 @@ const { getUserById } = require('../models/user.model');
 
 //const jwt = require('jsonwebtoken');
 module.exports = function auth(authKeyword, isApiOrNot=false) { return function auth(req, res, next){
+
+
+    console.log(res)
+
     const cookieParser = require('@helpers/cookieParser');
     const token = req.headers['user-agent']; 
-    console.log(token);
+    
     const cookie = req.headers['cookie'];
     const getSessionById = require('@models/userSession.model.js').getSessionById;
     const cookieObject = cookieParser(cookie);
-    console.log(cookieObject);
-    console.log(token)
-   
+    console.log(req.headers)
 
-    console.log(getSessionById(cookieObject.sessionid));    
+    
 // Procedure
     // Check token availibility
     // If not -> return Error or Redirect to Login or call return method
@@ -59,14 +61,13 @@ module.exports = function auth(authKeyword, isApiOrNot=false) { return function 
     const session = getSessionById(cookieObject.sessionid);
     if(session.user_agent != agent) res.status(401).send('Access Denied. Invalid User Agent');
     // // Check for Expiry
-    console.log(new Date());
-    console.log(session.expiry);
+    
     // if(session.expiry < new Date()) res.status(401).send('Access Denied. Token Expired');
     // // Check for User
     const user = getUserById(session.user_id);
     if(!user) res.status(401).send('Access Denied. Invalid User');
 
-    res.send(user);
+    
     // const user = getUserById(getSessionById(token).user_id);
 
 
@@ -79,7 +80,7 @@ module.exports = function auth(authKeyword, isApiOrNot=false) { return function 
 
 
    // if(!token) res.status(401).send('Access Denied. No Token Provided.');
-    req.user = {"name":"Mandeep Saini","_id":"12345"};
+    req.user = user;
     req.authKeyword = authKeyword;
     next();
 
