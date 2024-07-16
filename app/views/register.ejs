@@ -44,31 +44,40 @@
     const formData = Object.fromEntries(form);
     console.log("Data", JSON.stringify(formData))
 
-
     await fetch('/api/register', {
-      method: "POST",
-      redirect : 'follow',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-      .then(response => {
-        if (!response.ok) {
-          console.error('Network response was not ok');
-        }
-        console.log("Form submitted successfully!");
-        
-          // window.location.href = "/";
-        
-        return response.json(); // If expecting JSON response
-      })
-      .then(data => {
-        console.log("DATA",data); // Handle response data if needed
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
+  method: "POST",
+  credentials: 'same-origin',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+})
+  .then(response => {
+    console.log(response.status);
+    if (response.ok) {
+      console.log("Form submitted successfully!");
+      return response.json();
+    } else {
+      console.error('Network response was not ok');
+      return response.json().then(data => {
+        throw new Error(data.message); // Throw an error with the message from the response
       });
-  });     
+    }
+  })
+  .then(data => {
+    console.log(data);
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 300);
+  })
+  .catch(error => {
+    console.error('Error submitting form:', error);
+    alert(error.message); // Alert the error message when the request fails
+  });
+
+
+
+  });   
+  
+  
 </script>
 
 <%- contentFor('action') %>

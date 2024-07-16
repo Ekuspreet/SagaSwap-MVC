@@ -1,9 +1,20 @@
 
-<form class="flex flex-col gap-5">
+<form id="join_a_room">
+    <%- include('components/heading', { content : "Join An Existing Game" } ) %>
+
+    <%- include('./components/input-text', { 'label' : "Room Code" , 'type' : "number" }) %>
+    <%- include('components/input-submit-center',{name : "JOIN ROOM"}) %>
+
+</form>
+
+<div class="h-4 border-b-2 my-3 border-gray text-xl text-center">
+    <span class="bg-dim px-3">OR</span>
+  </div>
+<form id="create_a_room" class="flex flex-col gap-5 mb-10">
     <div class="choosegamemode">
     <%- include('components/heading', { content : "Choose A Game Mode" } ) %>
   
-    <fieldset id="gamemode" class="flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
+    <fieldset id="gamemode" class="mt-2 flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
 <%- include('components/gamemode-option.ejs',{ name : "Relaxed", description
     : "When You Want To Just Have Some Fun With Friends Without Bothering Much. " ,bgurl: "https://thumbs.dreamstime.com/b/peaceful-sunrise-over-serene-lake-representing-calm-clarity-can-come-maintaining-healthy-brain-vector-325420496.jpg" , feild : "gamemode", bordercol : "" , checked : "checked" }) %>
@@ -17,19 +28,19 @@
 </fieldset>
 </div>
     <div class="choosemedium">
-    <%- include('components/heading', { content : "What Do You Want To Create?" } ) %>
+    <%- include('components/heading', { content : "Choose The Medium Of Creation" } ) %>
   
-    <fieldset id="medium" class="flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
+    <fieldset id="medium" class="mt-2 flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
 <%- include('components/gamemode-option.ejs',{ name : "Story", description
-    : "Create A Fascinating Story" ,bgurl: "https://publishingperspectives.com/wp-content/uploads/2017/02/710-Sharjah-Childrens-Fest-ftw-1-710x452.png" ,feild : "medium", bordercol : "" , checked : "checked" }) %>
+    : "Create A Fascinating Story" ,bgurl: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/80004f68741469.5bae1b8424f4c.jpg" ,feild : "medium", bordercol : "" , checked : "checked" }) %>
 
 <%- include('components/gamemode-option.ejs',{ name : "Poem", description
-    : "Create A Enchanting Poem" ,bgurl: "https://t4.ftcdn.net/jpg/00/49/92/43/360_F_49924324_EVkUWQAfj5EP1jwj2M1UtVh3ts8vPUxU.jpg" ,feild : "medium", bordercol : "" , checked : "" }) %>
+    : "Create An Enchanting Poem" ,bgurl: "https://static.vecteezy.com/system/resources/previews/000/239/809/original/vector-beautiful-nature-illustration.jpg" ,feild : "medium", bordercol : "" , checked : "" }) %>
 
 </fieldset>
 </div>
-<%- include('components/input-submit',{name : "PLAY GAME"}) %>
+<%- include('components/input-submit-center',{name : "PLAY GAME"}) %>
 </form>
 
 <script>
@@ -37,6 +48,12 @@
 const greyscaler = ['grayscale','text-dim']
 
 document.addEventListener('DOMContentLoaded', function() {
+    //giving some props to input of number
+    document.getElementById('')
+
+
+
+    // handling ui of selecting gamemodes & medium
 
     const gamemode = document.getElementById('gamemode');
     const medium = document.getElementById('medium')

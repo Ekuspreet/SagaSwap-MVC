@@ -8,7 +8,8 @@ const debugStartUp = require('debug')('app:startup');
 
 //Init Express App
 const express = require('express');
-const req = require('express/lib/request');
+// const req = require('express/lib/request');
+const cookieParser = require('cookie-parser')
 const app = express();
 const bodyParser = require('body-parser')
 //Init Startup Error Logger
@@ -24,8 +25,8 @@ app.set('layout', 'layouts/layout','layouts/main.layout.ejs');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
-
 app.use(express.static("public"))
+app.use(cookieParser())
 
 //Init all Databases Here
 
