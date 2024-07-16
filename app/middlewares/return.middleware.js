@@ -14,12 +14,14 @@ module.exports = function returner(code,isApiOrNot=false,res){
                 case 4 :
                     res.status(401).json({message : "Authentication Failed. Token Has Expired. Please Login Again"})
                     break;
+                case 5 :
+                    res.status(403).json({message : "User Is Currently Banned. Please Try Again After Sometime"})
             }
 
 
             break;
         case false:
-
+                res.redirect("/")
 
 
             break;
