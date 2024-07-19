@@ -4,11 +4,11 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json())
 const {getHash} = require('@helpers/hasher');
 const errors = require('@middlewares/db.errors')
-const pool = require('@helpers/db.connect')
 
 
 router.post('/', async (req,res)=>{
     
+    const pool = require('@helpers/db.connect')
     // console.log(req.body)
     console.log(req.headers.cookie);
     const details = req.body;
@@ -35,8 +35,7 @@ router.post('/', async (req,res)=>{
     const rows = await executeQuery(query,values)
     console.log("ADDED USER ",rows)
     res.status(200).json({message: "User Added"});
-// console.log(req.headers)
-// res.send()
+
 })
 
 

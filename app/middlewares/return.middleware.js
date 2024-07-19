@@ -1,4 +1,4 @@
-module.exports = function returner(code,isApiOrNot=false,res){
+module.exports = function returner(code,res,isApiOrNot){
     switch(isApiOrNot){
         case true:
             switch(code){
@@ -16,14 +16,15 @@ module.exports = function returner(code,isApiOrNot=false,res){
                     break;
                 case 5 :
                     res.status(403).json({message : "User Is Currently Banned. Please Try Again After Sometime"})
-            }
+                default : 
+                res.status(403).json({message : "Unknown error occured. Kindly try again"})
+                }
+                break;
 
 
             break;
         case false:
                 res.redirect("/")
-
-
             break;
     }
 }

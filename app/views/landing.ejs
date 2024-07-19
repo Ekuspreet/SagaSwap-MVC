@@ -103,22 +103,32 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
-        .then(response => {
-          if (!response.ok) {
-            console.error('Network response was not ok');
-          }
-          console.log("Form submitted successfully!");
-          
-   
-          
-          return response.json(); // If expecting JSON response
-        })
-        .then(data => {
-          console.log("DATA",data); // Handle response data if needed
-        })
-        .catch(error => {
-          console.error('Error submitting form:', error);
-        });
+  .then(response => {
+    console.log(response.status);
+    if (response.ok) {
+      console.log("Form submitted successfully!");
+      return response.json();
+    } else {
+      console.error('Network response was not ok');
+      return response.json().then(data => {
+        throw new Error(data.message); // Throw an error with the message from the response
+      });
+    }
+  })
+  .then(data => {
+    console.log(data);
+    setTimeout(() => {
+       window.location.href = "/profile";
+    }, 30);
+  })
+  .catch(error => {
+    console.error('Error submitting form:', error);
+    alert(error.message); // Alert the error message when the request fails
+  });
+
+
+
+
     });     
   </script>
   
@@ -131,7 +141,7 @@
     <%- include('./components/button-link',{ 'name' : "Register" , 'description' : "To Create A New Account" , 'href'
         : "/register" }) %>
 
-        <%- contentFor('information') %>
+<%- contentFor('information') %>
             <section class="  min-h-96 flex-1  bg-dim w-full rounded-md p-3 text-center text-3xl font-sen">
                 HOW TO PLAY
 

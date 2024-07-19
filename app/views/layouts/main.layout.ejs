@@ -32,8 +32,10 @@
         <div class="brand text-offwhite font-logo font-bold md:text-2xl text-xl m-auto mx-3 ">
             <span class="text-violet-300 text-3xl leading-none">S</span>aga <span class="text-pink-300 text-3xl leading-none">S</span>wap
         </div>
+        <div>Email : <%= user.email %></div>
+        <div>GamerTag : <%= user.gamertag %></div>
 
-        <%- include( '../components/profile-button' , { "name" : "Ekuspreet", 'icon' : "person" } ) %>
+        <%- include( '../components/profile-button' , { "name" : user.name , 'icon' : "person" } ) %>
     </div>
     
 

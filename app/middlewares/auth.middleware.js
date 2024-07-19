@@ -2,8 +2,12 @@ const getSessionById = require("@databases/getSessionById")
 const getUserBySessionId = require("@databases/getUserBySessionId")
 const slideSessionFrame = require("@databases/slideExpiryWindow")
 const returner = require('@middlewares/return.middleware')
-//const jwt = require('jsonwebtoken');
-module.exports = function auth( req,res,next,isApiOrNot=false){
+const jwt = require('jsonwebtoken');
+const {verify} = require('@helpers/hasher')
+
+module.exports = async function auth( req,res,next,isApiOrNot=true){
+    let sessionid,sessions;
+    
 // Procedure
     // Check token availibility
     // If not -> return Error or Redirect to Login or call return method
@@ -19,39 +23,49 @@ module.exports = function auth( req,res,next,isApiOrNot=false){
     // getUserBySessionId()
     // slideSessionFrame()
     // authKeyword
-    // Input : Session ID, User Agent Code
+    // Input : Session ID, User Agent Code,Device ID
     // Output : User Object
-// Taking Input Here
-    // const token = req.header('x-auth-token');  // for developement
-    // const token = "123456789"
-    // const user_agent = "Mozilla/5.0 Version/4.0";
-    // const active = false;
-    // Auth Logic Written Here
-    // // Check for Token
-    // if(!getSessionById(cookieObject.sessionid)) res.status(401).send('Access Denied. Invalid Token');
-    // // // Check for Agent 
-    // const agent = token;
-    // const session = getSessionById(cookieObject.sessionid);
-    // if(session.user_agent != agent) res.status(401).send('Access Denied. Invalid User Agent');
-    // // // Check for Expiry
-    // // if(session.expiry < new Date()) res.status(401).send('Access Denied. Token Expired');
-    // // // Check for User
-    // const user = getUserById(session.user_id);
-    // if(!user) res.status(401).send('Access Denied. Invalid User');
-    // // const user = getUserById(getSessionById(token).user_id);
-    // // Authorisation ( Requires NO DATABASE CALL )
-    // // Check for User Role
-    // // if(!token) res.status(401).send('Access Denied. No Token Provided.');
-    // req.user = user;
-    // req.authKeyword = authKeyword;
-    // next();
-    // // try{
-    // // const decoded = jwt.verify(token,'jwtPrivateKey');
-    // // req.user = decoded;
-    // // next();
-    // // }
-    // // catch(ex){
-    // //     res.status(400).send('Access Denied. Invalid Token');
-    // // }
 
+    // Checking For Session Id In Token
+
+    if(!req.cookies.sessiontoken){
+        returner(1,res,isApiOrNot)
     }
+
+    jwt.verify(req.cookies.sessiontoken, process.env.JWT_SECRET, function(err,decoded){
+        if(decoded){
+             sessionid = decoded.sessionid
+        }else{
+            returner(1,res,isApiOrNot)
+        }
+    })
+
+    sessions = await getSessionById(sessionid);
+    console.log(sessions[0].id);
+    // console.log(sessions);
+    if(sessions.length == 0){
+            console.log("NO SESSION");
+            returner(2,res,isApiOrNot)
+    }
+
+    const agent = await verify(sessions[0].user_agent,req.headers['user-agent']);
+    if(!agent){
+            returner(3,res,isApiOrNot)
+    }
+    console.log(sessions[0].user_id);
+    console.log("Date", new Date());
+    console.log("Expiry", sessions[0].expiry_time);
+    if(new Date() > sessions[0].expiry_time ){
+        returner(4,res,isApiOrNot)
+    }
+    
+    const user = await getUserBySessionId(sessions[0].user_id)
+    console.log(user);
+    if(user[0].is_locked){
+        returner(5,res,isApiOrNot)
+    }
+    console.log(sessions);
+
+    await slideSessionFrame(sessionid);
+    return user[0]
+}
