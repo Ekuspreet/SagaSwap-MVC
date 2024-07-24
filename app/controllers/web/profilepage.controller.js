@@ -8,8 +8,8 @@ const authenticator = require('@middlewares/auth.middleware')
   router.get('/play',async (req,res) =>{
      // console.log('@views');
      const user = await authenticator(req,res)
-     console.log(user);
-     res.render('profile.play.ejs',{ layout : "layouts/main.layout.ejs" , user : user } );
+    //  console.log(user);
+     res.render('profile.play.ejs',{ layout : "layouts/main.layout.ejs" , user : user.user } );
   }
 )
 

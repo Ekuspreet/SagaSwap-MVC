@@ -8,7 +8,7 @@ const test2Controller = require('@controllers/app/test2.controller');
 const registrationController = require('@controllers/app/registration.controller.js')
 const anonymousController = require('@controllers/app/anonymousLogin.controller.js')
 const authenticatedController = require('@controllers/app/authenticatedLogin.controller.js') 
-
+const userController = require('@controllers/app/user.controller.js')
 module.exports = function(app){
  app.use(express.json());
  app.use('/admin/', baseController)  
@@ -17,6 +17,7 @@ module.exports = function(app){
  app.use('/api/register', registrationController )
 app.use('/api/login/anonymous', anonymousController )
 app.use('/api/login/authenticated', authenticatedController )
+app.use('/api/user', userController)
   //Log all thrown errors
   app.use(viewErrorsMiddleware);
 

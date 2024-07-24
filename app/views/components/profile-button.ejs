@@ -1,12 +1,136 @@
-
-
 <button
-id="<%= name.toLowerCase() %>label"
-class=" flex bg-offgray  active:text-offwhite active:bg-offgray font-sen leading-none text-left items-center gap-2 px-6 pt-3 pb-2 w-auto font-bold rounded-md transition-colors duration-250 ease-in-out ">
-<span class="material-symbols-outlined hidden sm:block box-border ">
-    <%= icon  %>
-    </span>
-<span class="hidden sm:block"> <%= name %>  </span>
-
-    
+  data-ripple-light="true" data-dialog-target="profile-info"
+  id="<%= user.name.toLowerCase() %>label"
+  class="flex bg-offgray active:text-offwhite active:bg-offgray font-sen leading-none text-left items-center gap-2 px-6 pt-3 pb-2 w-auto font-bold rounded-md transition-colors duration-250 ease-in-out">
+  <span class="material-symbols-outlined hidden sm:block box-border">
+    <%= icon %>
+  </span>
+  <span class="hidden sm:block"><%= user.name %></span>
+  
 </button>
+
+<div data-dialog-backdrop="profile-info" data-dialog-backdrop-close="true"
+  class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-200">
+  <div data-dialog="profile-info"
+    class="relative m-4 w-11/12 sm:w-2/5 p-5 sm:min-w-[40%] sm:max-w-[40%] rounded-lg bg-dim text-base font-light leading-relaxed text-gray-700 antialiased shadow-2xl font-sen">
+  <div class="head flex">  
+    <div class="heading text-xl font-semibold text-gray-900">
+      <%= heading %>
+    </div>
+    <button data-dialog-close="true"
+    class="ml-auto p-1 font-sans text-xs font-semibold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none material-symbols-outlined">
+    Close
+  </button>
+</div>
+    <hr class="my-3">
+    <div class="text-lg">
+        Welcome, <%= user.name %>
+    </div>
+
+    <div class="p-4 space-y-4">
+      <div><strong>Email:</strong> <input type="email" id="email" class="w-full border-none p-2 rounded text-white" value="<%= user.email %>" disabled></div>
+      <div><strong>Gamertag:</strong> <input type="text" id="gamertag" class="w-full border-none p-2 rounded text-white" value="<%= user.gamertag %>" disabled></div>
+    </div>
+    
+    <div class="flex items-center justify-end space-x-2 mt-6">
+        <button id="editButton" data-ripple-light="true" onclick="editProfile()"
+        class="px-4 py-2 font-sans text-xs font-semibold uppercase text-white bg-blue-500 rounded-lg transition-all hover:bg-blue-600 active:bg-blue-700 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        Edit
+    </button>
+    <button id="saveButton" data-ripple-light="true" onclick="saveProfile()" style="display: none;"
+    class="px-4 py-2 font-sans text-xs font-semibold uppercase text-white bg-green-500 rounded-lg transition-all hover:bg-green-600 active:bg-green-700 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+    Save
+</button>
+<button id="logoutButton" data-ripple-dark="true"
+  class="px-4 py-2 font-sans text-xs font-semibold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+  onclick="logout()"
+  >
+  Logout
+</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const openDialogButton = document.querySelector('[data-dialog-target="profile-info"]');
+    const dialogBackdrop = document.querySelector('[data-dialog-backdrop="profile-info"]');
+    const closeButtons = document.querySelectorAll('[data-dialog-close="true"]');
+
+    openDialogButton.addEventListener('click', () => {
+      dialogBackdrop.classList.remove('pointer-events-none', 'opacity-0');
+      dialogBackdrop.classList.add('pointer-events-auto', 'opacity-100');
+    });
+
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        dialogBackdrop.classList.remove('pointer-events-auto', 'opacity-100');
+        dialogBackdrop.classList.add('pointer-events-none', 'opacity-0');
+      });
+    });
+
+    dialogBackdrop.addEventListener('click', (event) => {
+      if (event.target === dialogBackdrop) {
+        dialogBackdrop.classList.remove('pointer-events-auto', 'opacity-100');
+        dialogBackdrop.classList.add('pointer-events-none', 'opacity-0');
+      }
+    });
+  });
+
+  function editProfile() {
+    document.getElementById('email').disabled = false;
+    document.getElementById('gamertag').disabled = false;
+    document.getElementById('email').classList.remove('text-white');
+    document.getElementById('email').classList.add('text-dim');
+    document.getElementById('gamertag').classList.remove('text-white');
+    document.getElementById('gamertag').classList.add('text-dim');
+    document.getElementById('editButton').style.display = 'none';
+    document.getElementById('saveButton').style.display = 'inline-block';
+  }
+
+  function saveProfile() {
+    document.getElementById('email').disabled = true;
+    document.getElementById('gamertag').disabled = true;
+    document.getElementById('email').classList.remove('text-dim');
+    document.getElementById('email').classList.add('text-white');
+    document.getElementById('gamertag').classList.remove('text-dim');
+    document.getElementById('gamertag').classList.add('text-white');
+    document.getElementById('editButton').style.display = 'inline-block';
+    document.getElementById('saveButton').style.display = 'none';
+
+    // Add your save profile logic here
+  }
+
+  async function logout(){
+  console.log("Logging out....");  
+  await fetch('/api/user/logout', {
+  method: "POST",
+  credentials: 'same-origin',
+  headers: { 'Content-Type': 'application/json' },
+})
+  .then(response => {
+
+    console.log(response.status);
+    if (response.ok) {
+      console.log("Form submitted successfully!");
+      return response.json();
+    } else {
+      console.error('Network response was not ok');
+      return response.json().then(data => {
+        throw new Error(data.message); // Throw an error with the message from the response
+      });
+    }
+  })
+  .then(data => {
+    console.log(data);
+    alert("Logging Out")
+    window.location.href = "/"
+})
+  .catch(error => {
+    console.error('Error submitting form:', error);
+    alert(error.message); // Alert the error message when the request fails
+  });
+
+    // prompt("Password")
+  }
+</script>

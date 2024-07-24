@@ -1,18 +1,36 @@
 
-<form id="join_a_room">
+<form id="join_a_room" class="flex flex-col gap-3">
     <%- include('components/heading', { content : "Join An Existing Game" } ) %>
-
-    <%- include('./components/input-text', { 'label' : "Room Code" , 'type' : "number" }) %>
+    <!-- <div class="div mt-2"></div> -->
+     <hr>
+    <label class="label font-medium ml-1 font-sen">Room Code</label>
+    <input 
+    type="number" 
+    class="p-2  font-sen bg-gray focus:bg-offwhite w-full h-10 rounded border-none text-dark "
+    name="roomcode"
+    min = 99999
+    placeholder = 123456
+    max = 999999
+    >
+    <label class="label font-medium ml-1 font-sen">Room Password</label>
+    <input 
+        type="text" 
+        class="p-2  font-sen bg-gray focus:bg-offwhite w-full h-10 rounded border-none text-dark "
+        name="roompassword"
+        >
+    
     <%- include('components/input-submit-center',{name : "JOIN ROOM"}) %>
 
 </form>
 
-<div class="h-4 border-b-2 my-3 border-gray text-xl text-center">
+<div class="h-4 border-b-2 my-8 border-gray text-xl text-center">
     <span class="bg-dim px-3">OR</span>
   </div>
 <form id="create_a_room" class="flex flex-col gap-5 mb-10">
     <div class="choosegamemode">
-    <%- include('components/heading', { content : "Choose A Game Mode" } ) %>
+    
+    
+        <%- include('components/heading', { content : "Choose A Game Mode" } ) %>
   
     <fieldset id="gamemode" class="mt-2 flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
@@ -40,7 +58,7 @@
 
 </fieldset>
 </div>
-<%- include('components/input-submit-center',{name : "PLAY GAME"}) %>
+<%- include('components/input-submit-center',{name : "CREATE A ROOM"}) %>
 </form>
 
 <script>
@@ -48,10 +66,6 @@
 const greyscaler = ['grayscale','text-dim']
 
 document.addEventListener('DOMContentLoaded', function() {
-    //giving some props to input of number
-    document.getElementById('')
-
-
 
     // handling ui of selecting gamemodes & medium
 

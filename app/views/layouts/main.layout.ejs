@@ -32,10 +32,16 @@
         <div class="brand text-offwhite font-logo font-bold md:text-2xl text-xl m-auto mx-3 ">
             <span class="text-violet-300 text-3xl leading-none">S</span>aga <span class="text-pink-300 text-3xl leading-none">S</span>wap
         </div>
-        <div>Email : <%= user.email %></div>
-        <div>GamerTag : <%= user.gamertag %></div>
 
-        <%- include( '../components/profile-button' , { "name" : user.name , 'icon' : "person" } ) %>
+        
+        <!-- modal -->
+        <!-- Modal toggle -->
+        
+        
+        
+        
+        
+        <%- include( '../components/profile-button' , { user : user , 'icon' : "person" , 'heading' : 'Profile Settings' } ) %>
     </div>
     
 
@@ -46,15 +52,8 @@
             include('../components/menu-button', {
                 name : "Play",
                 icon : "stadia_controller"
-            }) %> <%-
-            include('../components/menu-button', {
-                name : "Friends",
-                icon : "group"
-            }) %> <%-
-            include('../components/menu-button', {
-                name : "Settings",
-                icon : "settings"
-            }) %>
+            }) %> 
+            
         </form>
             
     

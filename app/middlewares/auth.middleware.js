@@ -5,7 +5,7 @@ const returner = require('@middlewares/return.middleware')
 const jwt = require('jsonwebtoken');
 const {verify} = require('@helpers/hasher')
 
-module.exports = async function auth( req,res,next,isApiOrNot=true){
+module.exports = async function auth( req,res,next,isApiOrNot=false){
     let sessionid,sessions;
     
 // Procedure
@@ -30,6 +30,7 @@ module.exports = async function auth( req,res,next,isApiOrNot=true){
 
     if(!req.cookies.sessiontoken){
         returner(1,res,isApiOrNot)
+        next()
     }
 
     jwt.verify(req.cookies.sessiontoken, process.env.JWT_SECRET, function(err,decoded){
@@ -37,35 +38,42 @@ module.exports = async function auth( req,res,next,isApiOrNot=true){
              sessionid = decoded.sessionid
         }else{
             returner(1,res,isApiOrNot)
+            next()
         }
     })
 
     sessions = await getSessionById(sessionid);
-    console.log(sessions[0].id);
-    // console.log(sessions);
+    console.log(sessions[0].user_agent);
     if(sessions.length == 0){
-            console.log("NO SESSION");
+            // console.log("NO SESSION");
             returner(2,res,isApiOrNot)
-    }
+            next()
+        }
 
     const agent = await verify(sessions[0].user_agent,req.headers['user-agent']);
     if(!agent){
             returner(3,res,isApiOrNot)
-    }
-    console.log(sessions[0].user_id);
+            next()
+        }
     console.log("Date", new Date());
     console.log("Expiry", sessions[0].expiry_time);
     if(new Date() > sessions[0].expiry_time ){
+        console.log("Session is Expiring");
         returner(4,res,isApiOrNot)
+        next()
     }
+  
+
+    console.log("After Expiring");
     
     const user = await getUserBySessionId(sessions[0].user_id)
-    console.log(user);
+    // console.log(user);
     if(user[0].is_locked){
         returner(5,res,isApiOrNot)
+        next()
     }
-    console.log(sessions);
+    // console.log(sessions);
 
     await slideSessionFrame(sessionid);
-    return user[0]
+    return {user : user[0], sessionid : sessionid}
 }

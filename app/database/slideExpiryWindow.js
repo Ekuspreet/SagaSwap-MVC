@@ -8,6 +8,7 @@ async function slideExpiryWindow(session_id) {
                    RETURNING *;`;
     
     const result = await pool.query(query, values);
+    console.log("Slided");
     return result;  // Assuming you want to return the rows
 }
 
