@@ -12,16 +12,19 @@ const express = require('express');
 const cookieParser = require('cookie-parser')
 const app = express();
 const bodyParser = require('body-parser')
+
+
 //Init Startup Error Logger
 require('@startup/errorLog.start')(process);
 
 
 const expressLayouts = require('express-ejs-layouts');
+const { log } = require('winston');
 
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, './app/views'));
 app.use(expressLayouts);
-app.set('layout', 'layouts/layout','layouts/main.layout.ejs');
+app.set('layout', 'layouts/layout','layouts/main.layout.ejs','layouts/room.layout.ejs');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
@@ -32,10 +35,10 @@ app.use(cookieParser())
 
 // const db_client = require('@helpers/db.connect')
 
+
+
 // require('@databases/createUser.js')(db_client);
 // require('@databases/createSession.js')(db_client);
-
-
 
 
 //Simulate an Uncaught Error code

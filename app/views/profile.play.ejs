@@ -2,18 +2,23 @@
 <form id="join_a_room" class="flex flex-col gap-3">
     <%- include('components/heading', { content : "Join An Existing Game" } ) %>
     <!-- <div class="div mt-2"></div> -->
-     <hr>
+     
+
     <label class="label font-medium ml-1 font-sen">Room Code</label>
-    <input 
+    
+    <input
+    required 
     type="number" 
     class="p-2  font-sen bg-gray focus:bg-offwhite w-full h-10 rounded border-none text-dark "
     name="roomcode"
     min = 99999
     placeholder = 123456
     max = 999999
+    id="roomcode"
     >
     <label class="label font-medium ml-1 font-sen">Room Password</label>
-    <input 
+    <input
+    required 
         type="text" 
         class="p-2  font-sen bg-gray focus:bg-offwhite w-full h-10 rounded border-none text-dark "
         name="roompassword"
@@ -27,10 +32,13 @@
     <span class="bg-dim px-3">OR</span>
   </div>
 <form id="create_a_room" class="flex flex-col gap-5 mb-10">
-    <div class="choosegamemode">
+    <div class="choosegamemode flex flex-col gap-3">
     
-    
-        <%- include('components/heading', { content : "Choose A Game Mode" } ) %>
+        <%- include('components/heading', { content : "Create A New Game" } ) %>
+        <!-- <div class="div mt-2"></div> -->
+
+         <label class="label font-medium  ml-1  font-sen">Select A Game Mode</label>
+
   
     <fieldset id="gamemode" class="mt-2 flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
@@ -46,7 +54,7 @@
 </fieldset>
 </div>
     <div class="choosemedium">
-    <%- include('components/heading', { content : "Choose The Medium Of Creation" } ) %>
+    <label class="label font-medium ml-1 font-sen">Select A Medium of Creation</label>
   
     <fieldset id="medium" class="mt-2 flex flex-col px-5 sm:px-0 sm:flex-row gap-3 flex-wrap mx-auto">
 
@@ -58,6 +66,16 @@
 
 </fieldset>
 </div>
+<label class="label font-medium ml-1 font-sen">Room Password</label>
+
+<input
+required 
+type="text" 
+class="p-2  font-sen bg-gray focus:bg-offwhite w-full h-10 rounded border-none text-dark "
+name="roompassword"
+required
+>
+
 <%- include('components/input-submit-center',{name : "CREATE A ROOM"}) %>
 </form>
 
@@ -97,4 +115,83 @@ function updateChecked(selectionmode) {
         }
     });
 }
+</script>
+
+
+<script>
+    // this script ensures the validation of roomcode
+
+    const input = document.querySelector('#roomcode')
+        input.addEventListener('change', ()=>{
+            const value = input.value;
+            console.log(input.value.length); 
+            if(input.value.length != 6){
+                 input.setCustomValidity('Room Code Must Be 6 Digits Only.')
+            }else {
+                 input.setCustomValidity('')
+
+            }
+        })
+
+</script>
+
+
+<!-- This Script Handles Form Submission  -->
+
+<script>
+
+    // this handles creating a room.
+
+    const create_form = document.querySelector("#create_a_room")
+    create_form.addEventListener('submit',(e)=>{
+
+        e.preventDefault();
+           
+        
+        const formData = Object.fromEntries(new FormData(create_form));
+        console.log(formData);
+
+        fetch('/api/room/create', {
+  method: "POST",
+  credentials: 'same-origin',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+})
+  .then(response => {
+    console.log(response.status);
+    if (response.ok) {
+      console.log("Form submitted successfully!");
+      return response.json();
+    } else {
+      console.error('Network response was not ok');
+      return response.json().then(data => {
+        throw new Error(data.message); // Throw an error with the message from the response
+      });
+    }
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error submitting form:', error);
+    alert(error.message); // Alert the error message when the request fails
+  });
+
+
+
+
+    });
+    
+    
+    // this handles joining a room.
+    const join_form = document.querySelector("#join_a_room")
+    join_form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+
+
+        const formData = Object.fromEntries(new FormData(join_form));
+        console.log(formData);
+
+    })
 </script>

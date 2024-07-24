@@ -1,6 +1,6 @@
-const getSessionById = require("@databases/getSessionById")
-const getUserBySessionId = require("@databases/getUserBySessionId")
-const slideSessionFrame = require("@databases/slideExpiryWindow")
+const getSessionById = require("@models/getSessionById")
+const getUserBySessionId = require("@models/getUserBySessionId")
+const slideSessionFrame = require("@models/slideExpiryWindow")
 const returner = require('@middlewares/return.middleware')
 const jwt = require('jsonwebtoken');
 const {verify} = require('@helpers/hasher')
@@ -43,9 +43,7 @@ module.exports = async function auth( req,res,next,isApiOrNot=false){
     })
 
     sessions = await getSessionById(sessionid);
-    console.log(sessions[0].user_agent);
     if(sessions.length == 0){
-            // console.log("NO SESSION");
             returner(2,res,isApiOrNot)
             next()
         }
@@ -55,24 +53,18 @@ module.exports = async function auth( req,res,next,isApiOrNot=false){
             returner(3,res,isApiOrNot)
             next()
         }
-    console.log("Date", new Date());
-    console.log("Expiry", sessions[0].expiry_time);
     if(new Date() > sessions[0].expiry_time ){
-        console.log("Session is Expiring");
         returner(4,res,isApiOrNot)
         next()
     }
   
 
-    console.log("After Expiring");
     
     const user = await getUserBySessionId(sessions[0].user_id)
-    // console.log(user);
     if(user[0].is_locked){
         returner(5,res,isApiOrNot)
         next()
     }
-    // console.log(sessions);
 
     await slideSessionFrame(sessionid);
     return {user : user[0], sessionid : sessionid}
