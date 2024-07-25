@@ -1,0 +1,114 @@
+<div class="content bg-dim rounded flex-1 flex flex-col p-2">
+    <div class="settings">
+        <center>
+            <%- include('./components/heading',{
+                content : "ROOM SETTINGS"
+            }) %>
+        </center>
+        <form class="space-y-4 mt-4">
+            <!-- Round Duration -->
+            <div class="flex flex-col">
+                <div class="name">
+                    <label for="game-duration" class="block text-white text-sm font-semibold">Duration of Each Round</label>
+                </div>
+                <div class="input flex items-center">
+                    <input id="game-duration" name="game-duration" type="range" min="1" max="60" value="30" class="w-full slider">
+                    <span id="game-duration-value" class="block text-white text-lg border-2 px-5 py-1 rounded-lg font-semibold ml-2">30</span>
+                </div>
+            </div>
+
+            <!-- Difficulty Level Slider -->
+            <div class="flex flex-col">
+                <div class="name">
+                    <label for="difficulty-level" class="block text-white text-sm font-semibold mb-2">Difficulty Level</label>
+                </div>
+                <div class="input flex items-center">
+                    <input id="difficulty-level" name="difficulty-level" type="range" min="1" max="5" value="3" class="w-full slider">
+                    <span id="difficulty-level-value" class="block text-white text-lg border-2 px-5 py-1 rounded-lg font-semibold ml-2">3</span>
+                </div>
+            </div>
+
+            <!-- Update Button -->
+            <div>
+                <%- include('./components/input-submit-center',{
+                    name : "Update Room Settings"
+                }) %>
+            </div>
+        </form>
+    </div>
+    <hr class="my-3">
+    <div class="start p-3">
+        <button class="w-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-semibold py-2 px-4 rounded hover:from-violet-600 hover:to-pink-600 active:from-violet-700 active:to-pink-700">
+            START GAME
+        </button>
+    </div>
+</div>
+
+<%- contentFor('players') %>
+<div class="players sm:w-[30%] bg-dim rounded p-2">
+    <center>
+        <%- include('./components/heading',{
+            content : "PLAYERS"
+        }) %>
+    </center>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update the displayed value for the game duration slider
+        var gameDurationSlider = document.getElementById('game-duration');
+        var gameDurationValue = document.getElementById('game-duration-value');
+        gameDurationValue.textContent = gameDurationSlider.value;
+
+        gameDurationSlider.addEventListener('input', function() {
+            gameDurationValue.textContent = this.value;
+        });
+
+        // Update the displayed value for the difficulty level slider
+        var difficultyLevelSlider = document.getElementById('difficulty-level');
+        var difficultyLevelValue = document.getElementById('difficulty-level-value');
+        difficultyLevelValue.textContent = difficultyLevelSlider.value;
+
+        difficultyLevelSlider.addEventListener('input', function() {
+            difficultyLevelValue.textContent = this.value;
+        });
+    });
+</script>
+
+<style>
+    /* Custom styles for sliders */
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #8e44ad 0%, #e74c3c 100%);
+        outline: none;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+    }
+
+    .slider:hover {
+        opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    }
+</style>
